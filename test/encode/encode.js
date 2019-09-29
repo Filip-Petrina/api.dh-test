@@ -86,4 +86,20 @@ describe('POST /encode', ()=>{
             })
     })
 
+    it('Fail, missing or wrong authorization token', (done)=>{
+        request(app).post('/encode')
+            .send({ })
+            .set({'Content-type': 'application/json', 'authorization': 'xyz04321'})
+            .then((res)=>{
+                const body = res.body;
+
+                expect(res.status).to.equal(401);
+
+                done();
+            })
+            .catch((err)=>{
+                done(err);
+            })
+    })
+
 })
